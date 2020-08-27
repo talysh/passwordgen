@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Password Generator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -14,25 +17,85 @@
 
   <div class="wrapper">
     <header>
-      <h1>Password Generator</h1>
+      <h1 class="display-4 font-weight-bold">Password Generator</h1>
     </header>
     <div class="card">
       <div class="card-header">
-        <h2>Generate a Password</h2>
+        <h2 class="text-center text-muted">Generate a Password</h2>
       </div>
       <div class="card-body">
         <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
       </div>
       <div class="card-footer">
-        <button id="generate" class="btn">Generate Password</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#passwordModal">
+          Generate Password
+        </button>
+
       </div>
     </div>
   </div>
 
+  <!-- Button trigger modal -->
 
+  <!-- Modal -->
+  <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="passModalLabel">Password Criteria</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form>
+            <!-- Password length slider -->
+            <label for="passwordLength">Password Length </label>
+            <input type="range" class="custom-range" min="8" max="128" value="8" step="1" id="passwordLength">
+            <label id="passLengthLabel" class="ml-4">8</label>
+            <hr>
 
+            <!-- Checkboxes -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="lowercase" value="option1">
+              <label class="form-check-label" for="lowercase">Lowercase</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="uppercase" value="option2">
+              <label class="form-check-label" for="uppercase">Uppercase</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="numbers" value="option3">
+              <label class="form-check-label" for="numbers">Numbers</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="symbols" value="option4">
+              <label class="form-check-label" for="symbols">Symbols</label>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" id="submitButton">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script type="text/javascript" src="scripts/script.js">  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
 
 </body>
 

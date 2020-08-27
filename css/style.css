@@ -72,6 +72,19 @@ header {
   clear: both;
 }
 
+#passwordLength::after {
+  content: "128";
+  position: absolute;
+  left: 50%;
+  top: 30%;
+}
+#passwordLength::before {
+  content: "8";
+  position: absolute;
+  left: 30%;
+  top: 30%;
+}
+
 .btn {
   border: none;
   background-color: hsl(360, 91%, 36%);

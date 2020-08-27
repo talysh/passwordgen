@@ -1,60 +1,20 @@
-// Assignment Code
 var generateBtn = document.querySelector("#generate");
-
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
+var passLengthSlider = document.getElementById("passwordLength");
+var passLenghtLabel = document.getElementById("passLengthLabel");
+var submitButton = document.getElementById("submitButton");
+var lowercaseCheckbox = document.getElementById("lowercase");
+var uppercaseCheckbox = document.getElementById("uppercase");
+var numbersCheckbox = document.getElementById("numbers");
+var symbolsCheckbox = document.getElementById("symbols");
+var noCharacterAlert = document.getElementById("noCharacterChosen");
 
 // Write password to the #password input
-function writePassword() {
-  var password = returnPassword();
+function writePassword(password) {
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
 
-// Ask user to enter password characteristics and passes the arguments into password generator function.
-function returnPassword() {
-
-  var passwordLength = getPasswordLength();
-  var params = getAcceptablePasswordCharacters();
-
-  var password = generatePassword(params, passwordLength);
-  return password;
-
-}
-
-//Keep prompting the user to enter a password length until she enters a valid argument, and returns that value as integer. 
-
-function getPasswordLength() {
-  var passwordLength = parseInt(prompt("Please, enter password length between [8-128] characters:"));
-  while (!(passwordLength >= 8 && passwordLength <= 128)) {
-    passwordLength = parseInt(prompt("Please, enter a valid input - a number between [8-128]"))
-  }
-  return passwordLength;
-}
-
-//Prompt user if he would like to include certain characters in the password 
-
-function getAcceptablePasswordCharacters() {
-  var params = [];
-
-  params.push(confirm("Would you like lowercase characters in your password?"));
-  params.push(confirm("Would you like uppercase characters in your password?"));
-  params.push(confirm("Would you like numbers in your password?"));
-  params.push(confirm("Would you like specials characters in your password?"));
-
-  //If the user does not pick at least one type of character to be included in the password, prompt him to pick characters again
-  if (!params.includes(true)) {
-    alert("Please, select at least one type of character");
-    params = getAcceptablePasswordCharacters();
-  }
-  return params;
-
-}
-
-
-// Take an array of 5 booleans as input, and return a string which includes all the characters that a user would like to include in her password
+// Take an array of 4 booleans as input, and return a string which includes all the characters that a user would like to include in her password
 
 function createCharacterSet(passwordElements) {
 
@@ -68,7 +28,7 @@ function createCharacterSet(passwordElements) {
   return chosenCharacters;
 }
 
-//Take a string as an input, and return a random character from that string back.     
+//Take a string as an input, and return a random character from that string.     
 function generateRandomCharacter(chosenCharacters) {
   var randomIndex = Math.floor(Math.random() * chosenCharacters.length);
   return chosenCharacters[randomIndex];
@@ -85,5 +45,45 @@ function generatePassword(passwordElements, passwordLength) {
 
   }
   return password;
-  console.log("Your password is: " + password);
 }
+
+// Updates the slider label with the current value, as the slider moves 
+function updateSliderLabel() {
+  passLenghtLabel.innerHTML = passLengthSlider.value;
+}
+
+// Validate the input and pass it as parameters to password generator
+
+
+function validateInput(event) {
+  event.preventDefault();
+  params = [false, false, false, false];
+
+  if (lowercaseCheckbox.checked) {
+    params[0] = true;
+  }
+  if (uppercaseCheckbox.checked) {
+    params[1] = true;
+  }
+  if (numbersCheckbox.checked) {
+    params[2] = true;
+  }
+  if (symbolsCheckbox.checked) {
+    params[3] = true;
+  }
+
+  if (!params.includes(true)) {
+    alert("At least one character type must be selected");
+  }
+
+  else {
+    var password = generatePassword(params, passLengthSlider.value);
+    $('#passwordModal').modal('hide');
+    writePassword(password);
+  }
+}
+
+// Events
+
+passLengthSlider.addEventListener("change", updateSliderLabel);
+submitButton.addEventListener("click", validateInput);
