@@ -1,23 +1,23 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
+
 // Write password to the #password input
 function writePassword() {
   var password = returnPassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
-  passwordText.append(password);
 }
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
 
 // Ask user to enter password characteristics and passes the arguments into password generator function.
 function returnPassword() {
 
   var passwordLength = getPasswordLength();
-  var params = getPasswordCharacters();
+  var params = getAcceptablePasswordCharacters();
 
   var password = generatePassword(params, passwordLength);
   return password;
@@ -28,24 +28,21 @@ function returnPassword() {
 
 function getPasswordLength() {
   var passwordLength = parseInt(prompt("Please, enter password length between [8-128] characters:"));
-  while (passwordLength < 8 || passwordLength > 128 || !Number.isInteger(passwordLength)) {
-    passwordLength = parseInt(prompt("Please, enter a valid input - a whole number between 8-128:"))
+  while (!(passwordLength >= 8 && passwordLength <= 128)) {
+    passwordLength = parseInt(prompt("Please, enter a valid input - a number between [8-128]"))
   }
   return passwordLength;
 }
 
 //Prompt user if he would like to include certain characters in the password 
 
-function getPasswordCharacters() {
+function getAcceptablePasswordCharacters() {
   var params = [];
 
   params.push(confirm("Would you like lowercase characters in your password?"));
   params.push(confirm("Would you like uppercase characters in your password?"));
   params.push(confirm("Would you like numbers in your password?"));
   params.push(confirm("Would you like specials characters in your password?"));
-
-  //Because the character '"' had to be handled separately from the other special characters, the final BOOLEAN value in the array is duplicated 
-  params.push(params[params.length - 1]);
 
   //If the user does not pick at least one type of character to be included in the password, prompt him to pick characters again
   if (!params.includes(true)) {
@@ -61,7 +58,7 @@ function getPasswordCharacters() {
 
 function createCharacterSet(passwordElements) {
 
-  var charactersArray = ["abcdefghijklmnopqrstuvwxyz", "ABCEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~", '"',];
+  var charactersArray = ["abcdefghijklmnopqrstuvwxyz", "ABCEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", ' !#$%&\'()*+,-./:;<=>?@[]^_`{|}~\\"'];
   var chosenCharacters = "";
   for (var i = 0; i < passwordElements.length; i++) {
     if (passwordElements[i]) {
@@ -71,7 +68,7 @@ function createCharacterSet(passwordElements) {
   return chosenCharacters;
 }
 
-//Take a string as an input, and return a random character from that string back.
+//Take a string as an input, and return a random character from that string back.     
 function generateRandomCharacter(chosenCharacters) {
   var randomIndex = Math.floor(Math.random() * chosenCharacters.length);
   return chosenCharacters[randomIndex];
