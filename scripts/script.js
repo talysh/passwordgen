@@ -47,7 +47,7 @@ function getAcceptablePasswordCharacters() {
   //If the user does not pick at least one type of character to be included in the password, prompt him to pick characters again
   if (!params.includes(true)) {
     alert("Please, select at least one type of character");
-    params = getPasswordCharacters();
+    params = getAcceptablePasswordCharacters();
   }
   return params;
 
