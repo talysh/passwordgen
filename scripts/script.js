@@ -57,20 +57,8 @@ function updateSliderLabel() {
 
 function validateInput(event) {
   event.preventDefault();
-  params = [false, false, false, false];
 
-  if (lowercaseCheckbox.checked) {
-    params[0] = true;
-  }
-  if (uppercaseCheckbox.checked) {
-    params[1] = true;
-  }
-  if (numbersCheckbox.checked) {
-    params[2] = true;
-  }
-  if (symbolsCheckbox.checked) {
-    params[3] = true;
-  }
+  params = [lowercaseCheckbox.checked, uppercaseCheckbox.checked, numbersCheckbox.checked, symbolsCheckbox.checked];
 
   if (!params.includes(true)) {
     alert("At least one character type must be selected");
